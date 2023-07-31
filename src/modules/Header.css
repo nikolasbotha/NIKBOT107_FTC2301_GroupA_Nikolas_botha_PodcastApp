@@ -1,0 +1,35 @@
+
+.navBar {
+    height: 100px;
+    display: flex;
+    justify-content: space-between; /* Align items to the left and right */
+    align-items: center; /* Vertically center the items */
+    padding: 10px;
+    background-color: rgba(187, 182, 204, 0.346);
+  }
+  .searchbar{
+    height: 100px;
+    background-color: blue;
+    display: flex;
+  
+  }
+  .logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    /* Add transition to make the animation smooth */
+    transition: all 0.2s ease;
+    /* Add box shadow for the initial state without hover */
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  
+  .logo:hover {
+    filter: drop-shadow(0 0 1em #0d0d0d);
+    height: 6.5em;
+  }
+  
+  /* Style the heading */
+  .heading {
+    margin-left: 10px; /* Add some space between the image and the heading */
+    font-size: 24px; /* Adjust the font size as needed */
+  }

@@ -1,0 +1,7 @@
+.podcast-display-container{
+    width:100%;
+    display: flex
+}
+.podcast-image{
+    height:100px
+}
