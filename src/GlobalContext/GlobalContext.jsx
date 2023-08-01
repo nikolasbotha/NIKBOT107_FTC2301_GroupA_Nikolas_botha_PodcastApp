@@ -6,9 +6,9 @@ export const GlobalContext = createContext();
 // Create the Custom Provider
 export const GlobalProvider = ({ children }) => {
   const [globalData, setGlobalData] = useState({
-    authenticated: false,
+    authenticated: true,
     userData: null,
-    allShows: null,
+    allShows: [],
     singleShow: null,
   });
 

@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {SlCarousel, SlCarouselItem, SlButton, SlDrawer, SlBadge, SlCard, SlRating, SlDivider,  SlDialog} from '@shoelace-style/shoelace/dist/react';
 import './Carousel.css'
+import { GlobalContext } from '../GlobalContext/GlobalContext';
+import { Link } from 'react-router-dom'
 
 
 
@@ -49,11 +51,13 @@ const  { id, title, description, seasons, image, genres, updated } = item
     <SlCard className="card-overview grid-item" >
       <div className="grid-container">  
         <div className="preview-image-container">
+        <Link to={`/home/show/${id}`} >
           <img className="preview-image"
           slot="image"
           src={image}
           alt="cover photo"
          />
+         </Link>
          <SlRating ></SlRating>
         </div>
 
@@ -78,10 +82,14 @@ const  { id, title, description, seasons, image, genres, updated } = item
       </SlDrawer>
 
       <SlButton onClick={() => setDrawerOpen(true)}>View details</SlButton>
-      <SlButton id={id} onClick={handleButtonClick}>
-      View seasons
-      <SlBadge  variant="neutral" size ="small" pill>{seasons}</SlBadge>
-    </SlButton>
+
+
+      <Link to={`/home/show/${id}`} >
+      <SlButton id ={id} >
+      seasons
+      <SlBadge variant="neutral" size ="small" pill>{seasons}</SlBadge>
+        </SlButton>
+      </Link>
     
     
 
@@ -97,18 +105,27 @@ const  { id, title, description, seasons, image, genres, updated } = item
 
 
 export default function Carousel(props){
-  if(props.data.length > 0){
-       const CarouselItem = props.data.map((item) => (
-        Preview(item, props.previewId))); 
-     return (
-     <><div>
-      <h1>suggestions</h1>
-     </div>
-     <SlCarousel autoplay={false} navigation pagination slidesPerPage={1} slidesPerMove={1} className='carousel-container'>
 
-      {CarouselItem}
-     </SlCarousel></>) }
-}
+  const data = useContext(GlobalContext)
+  const allShows = data[0].allShows
+  if(allShows.length > 0){
+    const CarouselElementsArray = allShows.map((item) => (
+             Preview(item))); 
+         return (
+        <>
+        <div>
+          <h3>You might like</h3>
+        </div>
+        <SlCarousel autoplay={false} navigation slidesPerPage={1} slidesPerMove={1} className='carousel-container'>
+
+          {CarouselElementsArray}
+        </SlCarousel>
+        </>)
+  }
+
+
+           }
+
 
 
 

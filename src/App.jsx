@@ -17,20 +17,23 @@ import SignIn from './pages/SignIn';
 import Favorites from './pages/Favorites';
 // context
 import { GlobalContext } from './GlobalContext/GlobalContext';
+import '@shoelace-style/shoelace/dist/themes/light.css';
+import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path';
 
+setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.5.2/cdn/');
 
 
 const GlobalRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path='/' element={<Anon/>}>
-        <Route path='/signIn' element={<SignIn/>}/>       
-        <Route path='/signOut'element={<SignUp/>}/>
+        <Route path='/signin' element={<SignIn/>}/>       
+        <Route path='/signup'element={<SignUp/>}/>
       </Route>
-      <Route path='/Home' element ={<AuthLayout/>}>
+      <Route path='/home' element ={<AuthLayout/>}>
         <Route index element={<Home/>}/> 
-        <Route path='/Home/show' element={<Show/>}/>      
-        <Route path='/Home/Favorites'element={<Favorites/>}/>
+        <Route path='/home/show/:id' element={<Show/>}/>      
+        <Route path='/home/favorites'element={<Favorites/>}/>
       </Route>
     </Route>
   )

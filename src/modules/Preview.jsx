@@ -1,14 +1,16 @@
-import React from 'react'
+
 import { SlButton, SlDrawer, SlBadge, SlCard, SlRating, SlDivider} from '@shoelace-style/shoelace/dist/react';
 import './Preview.css'
+import { useContext, useState } from 'react';
+import { GlobalContext } from '../GlobalContext/GlobalContext';
+import { Link } from 'react-router-dom';
 
 
 
- function Preview(item, previewId) {
- 
+function Preview(item) {
 
   const  { id, title, description, seasons, image, genres, updated } = item
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
     
   
@@ -33,24 +35,27 @@ import './Preview.css'
     const episodeGenres = genres.map(number => genreTitles[number]);
     const genreTitlesString= episodeGenres.join(" ")
 
-  function handleButtonClick(event){
-    const {id} = event.target
-        
-        previewId(id)
-  }
+    // const handleFavorites =()=>{
+    //   console.log(title)
+    // }
 
-  return (
+   return (
     <div className="Preview" key={id}>
     
     <SlCard className="card-overview grid-item" >
       <div className="grid-container">  
         <div className="preview-image-container">
+
+        <Link to={`/home/show/${id}`} >
           <img className="preview-image"
           slot="image"
           src={image}
           alt="cover photo"
          />
+        </Link>
+
          <SlRating ></SlRating>
+         
         </div>
 
         <div className="preview-body">
@@ -61,7 +66,7 @@ import './Preview.css'
         <p>{resultString}...</p>
         
         </div>  
-        <div slot="footer" className="preview-footer">
+        <div id={id} slot="footer" className="preview-footer">
 
 
         <SlDrawer label={title} placement="start" open={open} onSlAfterHide={() => setOpen(false)}>
@@ -78,30 +83,33 @@ import './Preview.css'
       </SlDrawer>
 
       <SlButton onClick={() => setOpen(true)}>View details</SlButton>
-      <SlButton id ={id} onClick={handleButtonClick}>
+
+      <Link to={`/home/show/${id}`} >
+      <SlButton id ={id} >
       seasons
       <SlBadge variant="neutral" size ="small" pill>{seasons}</SlBadge>
-    </SlButton>
-
+        </SlButton>
+      </Link>
         </div>
 
       </div>
     </SlCard>
     </div>
 
-  );
-};
+   );
+ };
+
 
 export default function PreviewElements(props){
+
+  const data = useContext(GlobalContext)
+  const allShows = data[0].allShows
   
-    if(props.data.length > 0){
-     const previewElementsArray =props.data.map((item) => (
-      Preview(item, props.previewId)
-    )); 
+    if(allShows.length > 0){
+       const previewElementsArray = allShows.map((item) => (
+        Preview(item))); 
     return (
       <div className="main-grid-container">
-          {previewElementsArray}
+           {previewElementsArray}
       </div>
-    )}
-    
-}
+     )}}

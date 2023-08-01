@@ -7,7 +7,7 @@ import { GlobalProvider } from './GlobalContext/GlobalContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <GlobalProvider value={{}}>
+      <GlobalProvider>
         <App />
       </GlobalProvider>
   </React.StrictMode>,

@@ -1,9 +1,16 @@
 import React from 'react'
+import Preview from '../modules/Preview'
+import Carousel from '../modules/Carousel'
 
 function Home() {
   return (
-    <div>Home</div>
+    <>
+    <Carousel/>
+    <Preview/>
+    </>
   )
 }
 
 export default Home
+
+
