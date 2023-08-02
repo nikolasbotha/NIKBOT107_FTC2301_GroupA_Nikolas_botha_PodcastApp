@@ -1,4 +1,7 @@
-
+.header-container{
+  background-color: #ccc;
+  padding: 20px;
+}
 .navBar {
     height: 100px;
     display: flex;
@@ -33,3 +36,78 @@
     margin-left: 10px; /* Add some space between the image and the heading */
     font-size: 24px; /* Adjust the font size as needed */
   }
+
+  /* Assuming your search bar has a parent container with a class of "searchbar" */
+
+/* Styling the parent container */
+.searchbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling the heart button */
+.searchbar a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Styling the SlButton with heart icon */
+.sl-button[variant="default"] {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.sl-button[variant="default"]:hover {
+  background-color: #f7f7f7;
+}
+
+/* Styling the SlSelect */
+.sl-select {
+  position: relative;
+  width: 150px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+/* Styling the SlSelect icon */
+.sl-select sl-icon[slot="prefix"] {
+  color: #666;
+  margin-right: 8px;
+}
+
+/* Styling the SlSelect button */
+.sl-select sl-button {
+  border: none;
+  background-color: transparent;
+  color: #333;
+}
+
+.sl-select sl-button:hover {
+  cursor: pointer;
+}
+
+/* Styling the SlOptions */
+.sl-select sl-option {
+  color: #333;
+}
+
+/* Styling the SearchBar component (assuming it is a custom component) */
+.searchbar SearchBar {
+  flex: 1;
+}

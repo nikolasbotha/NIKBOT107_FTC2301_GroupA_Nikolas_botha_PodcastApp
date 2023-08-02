@@ -5,7 +5,7 @@ import Carousel from '../modules/Carousel'
 function Home() {
   return (
     <>
-    <Carousel/>
+    {/* <Carousel/> */}
     <Preview/>
     </>
   )

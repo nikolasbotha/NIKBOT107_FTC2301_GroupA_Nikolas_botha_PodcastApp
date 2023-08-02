@@ -3,6 +3,8 @@ import { useNavigate, Outlet } from "react-router-dom";
 import { GlobalContext } from '../GlobalContext/GlobalContext';
 import Header from '../modules/Header'
 import Footer from '../pages/Footer';
+import './AuthLayout.css'
+
 
 function AuthLayout() {
 const navigate = useNavigate()
@@ -16,11 +18,14 @@ useEffect(()=>{
 
   
   return (
-    <>
+    <div>
+      
       <Header/>
       <Outlet/>
       <Footer/>
-    </>
+      
+      
+    </div>
   )
 }
 

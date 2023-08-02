@@ -13,9 +13,13 @@
   } */
   
   /* Media queries to adjust the grid layout based on screen size */
-  
+  @media (min-width: 400px) {
+    .main-grid-container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
   /* For screens with a minimum width of 600px (2 rows) */
-  @media (min-width: 600px) {
+  @media (min-width: 700px) {
     .main-grid-container {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -41,7 +45,10 @@
     max-width: 110px;
   }
   
-  .preview-image-container { grid-area: photo; }
+  .preview-image-container {
+    display: flex;
+    flex-direction: column; 
+    grid-area: photo; }
   .preview-body { 
     grid-area: main; 
     padding-left: 15px

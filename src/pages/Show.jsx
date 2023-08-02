@@ -1,5 +1,6 @@
 import {supabase} from '../supabaseClient.js';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { GlobalContext } from '../GlobalContext/GlobalContext.jsx';
 import { useParams } from "react-router-dom";
 import {
   SlButton,
@@ -11,12 +12,15 @@ import {
   SlTree,
   SlTreeItem,
 } from "@shoelace-style/shoelace/dist/react";
-import getSingleShow from "../modules/GetSingleShow";
 import "./Show.css";
 
 function Show() {
+
+  const [globalData, setGlobalData] = useContext(GlobalContext)
+
   const { id } = useParams();
   const [SinglePodcastData, setSinglePodcastData] = useState(null);
+  
   //-----------------------
 
   useEffect(() => {
@@ -38,18 +42,22 @@ function Show() {
     showLoader();
   }, [id]);
 
+
+
   
 
   
   if (SinglePodcastData !== null) {
     function makeSeasonItems(seasons) {
        const SeasonsTree = seasons.map((seasonsObj) => {
-        const episodesList= seasonsObj.episodes
+      const episodesList= seasonsObj.episodes
+      
+      
 
 //-- generating episodes inside the Seasons
           const episodesTree = episodesList.map((episode)=>{
+
             const handleFavorites= async()=>{
-            
             const { data, error } = await supabase
             .from('PodcastFavorites')
             .insert([
@@ -63,13 +71,32 @@ function Show() {
                 },
             ])
             .select()
-            console.log(data)
             }
+
+            const setEpisodePlaying = () => {
+              setGlobalData((prevState) => ({
+                ...prevState,
+                episodePlaying: [episode, SinglePodcastData.image]
+              }));
+            };
+
             return(
                 <SlTreeItem prop= {episode}>
-                  <SlIcon name="music-note" />
+                  <SlRating max={1}
+                      label="Rating"
+                      getSymbol={() => '<sl-icon name="heart-fill"></sl-icon>'}
+                      style={{ '--symbol-color-active': '#ff4136', 'padding':'8px '}}
+                    />
+                  <SlButton prop={episode} 
+                  variant="default" size="small" 
+                  onClick={setEpisodePlaying} circle
+                  style={{ 'padding':'8px '}}>
+                      <SlIcon name="play-circle-fill" />
+                  </SlButton>
                   <p> {episode.episode}- {episode.title}</p>
                   <button onClick={handleFavorites}>add to fav</button>
+                      
+
                 </SlTreeItem>
             ) 
           })    
@@ -88,6 +115,16 @@ function Show() {
 
     const { title, description, seasons, image, updated, genres, updates } =
       SinglePodcastData;
+
+      const date = new Date(SinglePodcastData.updated)
+      const year = date.getFullYear();
+      const month = date.toLocaleString('default', { month: 'long' });
+      const day = date.getDate();
+      const hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      console.log(year, month)
 
     const wordsArray = description.trim().split(/\s+/);
     const first10Words = wordsArray.slice(0, 11);
@@ -130,13 +167,14 @@ function Show() {
               <div className="preview-body">
                 <strong>{title}</strong>
                 <p>genres: {genreTitlesString}</p>
+                <p>updated: {day}/{month}/{year}   - {hours}:{minutes}:{seconds}</p>
                 <br />
               </div>
               <div slot="footer" className="preview-footer">
                 <p>{description}</p>
               </div>
             </div>
-            <div>
+            <div className='tree'>
               <SlTree class="tree-with-icons">
                 <SlTreeItem expanded>
                  <h2> view shows </h2>
@@ -144,22 +182,7 @@ function Show() {
               
 
 
-                    {/* <SlTreeItem>
-                      <SlIcon name="folder" />
-                      Folder 1
-                            <SlTreeItem>
-                              <SlIcon name="files" />
-                              File 1 - 1
-                            </SlTreeItem>
-                                  <SlTreeItem disabled>
-                                    <SlIcon name="files" />
-                                    File 1 - 2
-                                  </SlTreeItem>
-                            <SlTreeItem>
-                              <SlIcon name="files" />
-                              File 1 - 3
-                            </SlTreeItem>
-                    </SlTreeItem> */}
+              
                   
                 </SlTreeItem>
               </SlTree>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { GlobalContext} from '../GlobalContext/GlobalContext'
 import { Link } from 'react-router-dom';
 import bookLogo from '../assets/book.svg';
 import { SlSwitch, SlOption, SlSelect, SlIcon, SlInput, SlButton } from '@shoelace-style/shoelace/dist/react';
@@ -6,13 +7,45 @@ import { SlSwitch, SlOption, SlSelect, SlIcon, SlInput, SlButton } from '@shoela
 import './Header.css';
 
 export default function Header() {
+  const [globalData, setGlobalData] = useContext(GlobalContext)
+
+  const SearchBar = ({ onSearch }) => {
+    const [searchQuery, setSearchQuery] = useState('');
+  
+    const handleInputChange = (event) => {
+      setSearchQuery(event.target.value);
+    };
+  
+    
+    const handleSearchClick = () => {
+        // Update the searchQuery in globalData
+        setGlobalData((prevState) => ({
+          ...prevState,
+          searchQuery: searchQuery,
+        }));
+      };
+
+    
+
+    return (
+      <div>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleInputChange}
+          placeholder="Search"
+        />
+        <button onClick={handleSearchClick}>Search</button>
+      </div>
+    );
+  };
+
   return (
-    <div>
+    <div className="header-conatiner">
       <nav className="navBar">
         <Link to="/home"> 
           <img src={bookLogo} className="logo" alt="Pod-_-bot" />
-          </Link> 
-
+        </Link> 
         <h2 className="heading">Pod-_-bot</h2>
         <SlSwitch>Dark Mode</SlSwitch>
       </nav>
@@ -22,7 +55,7 @@ export default function Header() {
             <SlIcon name="heart" />
           </SlButton>
         </Link> 
-        <SlSelect>
+        <SlSelect >
           <SlButton />
           <SlIcon name="filter" slot="prefix"></SlIcon>
           <SlOption value="option-1">
@@ -35,9 +68,8 @@ export default function Header() {
             <SlIcon name="filter" slot="prefix"></SlIcon>Option 3
           </SlOption>
         </SlSelect>
-        <SlInput placeholder="Search" size="medium">
-          <SlIcon name="search" slot="prefix"></SlIcon>
-        </SlInput>
+        
+        <SearchBar />
       </div>
     </div>
   );

@@ -71,7 +71,7 @@ const  { id, title, description, seasons, image, genres, updated } = item
         <div slot="footer" className="preview-footer">
 
 
-        <SlDrawer label={title} placement="start" open={drawerOpen} onSlAfterHide={() => setDrawerOpen(false)}>
+        <SlDrawer label={title} placement="top" open={drawerOpen} onSlAfterHide={() => setDrawerOpen(false)}>
         <p>{description}</p>
         <SlDivider />
         <p>{episodeGenres}</p>

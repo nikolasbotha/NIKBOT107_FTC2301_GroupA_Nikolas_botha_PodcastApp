@@ -7,10 +7,23 @@ import { Link } from 'react-router-dom';
 
 
 
+
 function Preview(item) {
+  const data = useContext(GlobalContext)
+  const searchQuery = data[0].searchQuery
+  const lowerSearchQuery = searchQuery.toLowerCase()
+
 
   const  { id, title, description, seasons, image, genres, updated } = item
   const [open, setOpen] = useState(false)
+
+    // Check if the title contains the search query (case-insensitive)
+    const titleContainsSearchQuery = title.toLowerCase().includes(lowerSearchQuery);
+
+    // Render the item only if searchQuery is empty or if the title contains the search query
+    if (searchQuery !== '' && !titleContainsSearchQuery) {
+      return null; // Skip rendering the item
+    }
 
     
   
@@ -69,7 +82,7 @@ function Preview(item) {
         <div id={id} slot="footer" className="preview-footer">
 
 
-        <SlDrawer label={title} placement="start" open={open} onSlAfterHide={() => setOpen(false)}>
+        <SlDrawer label={title} placement="top" open={open} onSlAfterHide={() => setOpen(false)}>
         <p>{genreTitlesString}</p>
         <SlDivider /><br/>
         
@@ -104,6 +117,8 @@ export default function PreviewElements(props){
 
   const data = useContext(GlobalContext)
   const allShows = data[0].allShows
+
+
   
     if(allShows.length > 0){
        const previewElementsArray = allShows.map((item) => (
