@@ -31,6 +31,15 @@ function Preview(item) {
     const first10Words = wordsArray.slice(0, 11);
     const resultString = first10Words.join(' ');
 
+    const date = new Date(updated)
+    const year = date.getFullYear();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    console.log(date, year, month, day, hours, minutes, seconds)
+
     
     
     const genreTitles ={
@@ -74,6 +83,7 @@ function Preview(item) {
         <div className="preview-body">
         <strong>{title}</strong>
         <p>{genreTitlesString}</p>
+        <p>updated: {day}/{month}/{year}   - {hours}:{minutes}:</p>
         <br/>
 
         <p>{resultString}...</p>
@@ -83,7 +93,8 @@ function Preview(item) {
 
 
         <SlDrawer label={title} placement="top" open={open} onSlAfterHide={() => setOpen(false)}>
-        <p>{genreTitlesString}</p>
+        <p>genres: {genreTitlesString}</p>
+        <p>updated: {day}/{month}/{year}   - {hours}:{minutes}:</p>
         <SlDivider /><br/>
         
         

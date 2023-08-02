@@ -124,7 +124,6 @@ function Show() {
       const minutes = String(date.getMinutes()).padStart(2, '0');
       const seconds = String(date.getSeconds()).padStart(2, '0');
 
-      console.log(year, month)
 
     const wordsArray = description.trim().split(/\s+/);
     const first10Words = wordsArray.slice(0, 11);

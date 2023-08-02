@@ -25,6 +25,7 @@ export default function Header() {
         }));
       };
 
+     
     
 
     return (
@@ -40,11 +41,19 @@ export default function Header() {
     );
   };
 
+  const handleHomeClick = () => {
+    // Update the searchQuery in globalData
+    setGlobalData((prevState) => ({
+      ...prevState,
+      searchQuery: '',
+    }));
+  };
+
   return (
     <div className="header-conatiner">
       <nav className="navBar">
         <Link to="/home"> 
-          <img src={bookLogo} className="logo" alt="Pod-_-bot" />
+          <img onClick={handleHomeClick} src={bookLogo} className="logo" alt="Pod-_-bot" />
         </Link> 
         <h2 className="heading">Pod-_-bot</h2>
         <SlSwitch>Dark Mode</SlSwitch>
